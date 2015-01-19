@@ -1,0 +1,34 @@
+{
+  "manifest_version": 2,
+
+  "name": "Kolo",
+  "description": "Kolo Chrome extension.",
+  "version": "0.1",
+
+  "permissions": [
+    "webNavigation",
+    "geolocation",
+    "tabs",
+    "http://localhost:4567/*",
+    "storage"
+  ],
+  "options_page" :"options.html",
+  "content_scripts": [ {
+      "all_frames": true,
+      "js": [ "js/lib/jquery.min.js","js/kolo_content.js"],
+      "matches": [ "http://*/*", "https://*/*" ],
+      "run_at": "document_start"
+   } ],
+
+
+  "icons": {"16": "icons/icon-big.png",
+             "48": "icons/icon-big1.png",
+            "128": "icons/icon-big1.png" },
+  "browser_action": {
+    "default_icon": "icons/icon-big.png",
+    "default_popup": "kolo.html"
+  },
+  "background": {
+    "scripts": ["js/lib/jquery.min.js","js/kolo.js"]
+  }
+}
