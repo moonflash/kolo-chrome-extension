@@ -40,11 +40,11 @@ chrome.webNavigation.onCompleted.addListener(function(e) {
 });
 
 async function requestLinks(url, tabId){
-	const response = await fetch('http://api.kolo.it/kolos/*/links.json?url=' + encodeURIComponent(url));
+	const response = await fetch('https://api.kolo.it/kolos/*/links.json?url=' + encodeURIComponent(url));
 	const links = await response.json();
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-  	chrome.tabs.sendMessage(tabs[0].id, {method:'setLinks', links:links}, function (links){});
-  });
+  // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+  	chrome.tabs.sendMessage(tabId, {method:'setLinks', links:links}, function (links){});
+  // });
   chrome.action.setBadgeBackgroundColor({ color: "#b5120b" });
   chrome.action.setBadgeText({text: links.length.toString(),tabId: tabId});
   chrome.action.setPopup({popup: 'popup.html', tabId: tabId},function(argument) {});
@@ -52,9 +52,7 @@ async function requestLinks(url, tabId){
 		if (retrieved_data.enabled == true){
 			chrome.storage.local.get("image_enabled", function (image_data){
 				if (image_data.image_enabled){
-					chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-						chrome.tabs.sendMessage(tabs[0].id, { method: 'getMaxImage', links: links, localStorage: localStorage}, function(response) {})
-					});
+					chrome.tabs.sendMessage(tabId, { method: 'getMaxImage', links: links}, function(response) {})
 				}
 			});
 		}
