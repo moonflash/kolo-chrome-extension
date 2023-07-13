@@ -29,7 +29,7 @@ li{
   text-align: left;
 }
 .form{
-	margin-top: -35px;
+/*	margin-top: -35px;*/
 }
 ul{
 	text-align: left;
@@ -99,4 +99,9 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+#links li a{
+	display: block;
+	padding: 10px;
+  background-color: aliceblue;
 }
