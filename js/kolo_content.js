@@ -21,7 +21,8 @@ function getMaxImage(data) {
 
 function addMapToImage(image, data){
   image.setAttribute('data-kolo-link', data.localStorage.link[0].id);
-  image.setAttribute('data-kolo-zoom', 16 );
+  chrome.storage.local.get("zoom").then((result) => {image.setAttribute('data-kolo-zoom', result.zoom)});
+  chrome.storage.local.get("map").then((result) => {image.setAttribute('data-kolo-type', result.map)});
   image.setAttribute('name', 'kolo-location');
   initKolo();
 }

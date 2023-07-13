@@ -27,12 +27,17 @@
     "16": "icons/icon-big.png",
     "48": "icons/icon-small-35.png",
     "128": "icons/icon-small-100.png" },
-  "action": {
-    "default_icon": "icons/icon.png",
-    "default_popup": "kolo.html"
-  },
   "background": {
     "service_worker": "js/kolo.js",
     "type": "module"
+  },
+  "action": {
+    "default_icon": {                // optional
+      "16": "icons/icon-big.png",
+      "48": "icons/icon-small-35.png",
+      "128": "icons/icon-small-100.png"
+    },
+    "default_title": "Kolo",  // optional, shown in tooltip
+    "default_popup": "popup.html"    // optional
   }
 }

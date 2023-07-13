@@ -58,7 +58,6 @@ initKolo = function(){
 
   for (j = 0, len1 = locations.length; j < len1; j++) {
     l = locations[j];
-    console.log("tuuu", l)
     requestLink(l, l.dataset);
   }
 
@@ -196,6 +195,8 @@ locationMap = function(container, _link, _links, _domain) {
       map_url = "//api.mapbox.com/styles/v1/mapbox/satellite-v9/static/url-https%3A%2F%2Fbeta.kolo.it%2Fassets%2Ficon-small-20.png(" + _link.lng + "," + _link.lat + ")/" + _link.lng + "," + _link.lat + "," + _link.dimensions + "?logo=false&attribution=false&access_token=" + "pk.eyJ1Ijoia29sb2l0IiwiYSI6ImNraXlnbGszNTI3dGgyem40bzJua2NwMHQifQ.Ks5ytrwtgU7uH-6tmL9GEg";
     } else if (_link.map_type === "dark") {
       map_url = "//api.mapbox.com/styles/v1/mapbox/dark-v10/static/url-https%3A%2F%2Fbeta.kolo.it%2Fassets%2Ficon-small-20.png(" + _link.lng + "," + _link.lat + ")/" + _link.lng + "," + _link.lat + "," + _link.dimensions + "?logo=false&attribution=false&access_token=" + "pk.eyJ1Ijoia29sb2l0IiwiYSI6ImNraXlnbGszNTI3dGgyem40bzJua2NwMHQifQ.Ks5ytrwtgU7uH-6tmL9GEg";
+    }  else if (_link.map_type === "hybrid") {
+      map_url = "//api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/static/url-https%3A%2F%2Fbeta.kolo.it%2Fassets%2Ficon-small-20.png(" + _link.lng + "," + _link.lat + ")/" + _link.lng + "," + _link.lat + "," + _link.dimensions + "?logo=false&attribution=false&access_token=" + "pk.eyJ1Ijoia29sb2l0IiwiYSI6ImNraXlnbGszNTI3dGgyem40bzJua2NwMHQifQ.Ks5ytrwtgU7uH-6tmL9GEg";
     } else if (_link.map_type === "light") {
       map_url = "//api.mapbox.com/styles/v1/mapbox/light-v10/static/url-https%3A%2F%2Fbeta.kolo.it%2Fassets%2Ficon-small-20.png(" + _link.lng + "," + _link.lat + ")/" + _link.lng + "," + _link.lat + "," + _link.dimensions + "?logo=false&attribution=false&access_token=" + "pk.eyJ1Ijoia29sb2l0IiwiYSI6ImNraXlnbGszNTI3dGgyem40bzJua2NwMHQifQ.Ks5ytrwtgU7uH-6tmL9GEg";
     } else {
