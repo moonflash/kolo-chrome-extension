@@ -32,7 +32,11 @@ chrome.webNavigation.onCompleted.addListener(function(e) {
 		var tabId = e.tabId;
 		chrome.storage.local.get("enabled", function (retrieved_data){
 		  if (retrieved_data.enabled == true){
-		  	requestLinks(url, tabId)
+		  	requestLinks(url, tabId);
+		  	console.log(e);
+		  	var uri = new URL(url);
+			  var domain = uri.hostname;
+			  // getEmbeddings(domain,tabId);
 		  }
 		});
 		
@@ -40,7 +44,11 @@ chrome.webNavigation.onCompleted.addListener(function(e) {
 });
 
 async function requestLinks(url, tabId){
-	const response = await fetch('https://api.kolo.it/kolos/*/links.json?url=' + encodeURIComponent(url));
+	// const response = await fetch('https://api.kolo.it/domain/links.json');
+		// const response = await fetch('https://api.kolo.it/domain/links.json');
+	// const response = await fetch('http://localhost:3331/domain/links.json');
+	const response = await fetch('https://api.kolo.it/domain/links.json?url=' + encodeURIComponent(url));
+	console.log("asdf",response);
 	const links = await response.json();
   // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
   	chrome.tabs.sendMessage(tabId, {method:'setLinks', links:links}, function (links){});
@@ -58,5 +66,14 @@ async function requestLinks(url, tabId){
 		}
 	});
 };
+// async function getEmbeddings(domain,tabId) {
+//   const response = await fetch('https://api.kolo.it/embeddings/domain/' + domain);
+//   // const response = await fetch('http://localhost:3331/embeddings/domain/' + domain);
+//   var embedding = await response.json();
+//   console.log("embedddddd",embedding); 
+// 	chrome.tabs.sendMessage(tabId, { method: 'setEmbedd', embed_id: embedding.id}, function(response) {})
+
+//   // embed.addEventListener("click", addingNewLink);
+// }
 
 init();

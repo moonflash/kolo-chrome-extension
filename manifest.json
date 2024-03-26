@@ -13,16 +13,20 @@
     "scripting"
   ],
   "host_permissions":[
-    "http://api.kolo.it/*",
-    "http://kolo.it/*"
+    "https://api.kolo.it/*",
+    "https://kolo.it/*"
   ],
   "options_page" :"options.html",
   "content_scripts": [ {
       "all_frames": true,
-      "js": [ "js/kolo_content.js", "js/lib/widget.js"],
+      "css": ["js/assets/css/frame.css"],
+      "js": [ "js/kolo_content.js", "js/lib/widget.js", "js/lib/embed.js", "js/lib/mapbox-gl.js"],
       "matches": [ "http://*/*", "https://*/*" ],
       "run_at": "document_start"
    } ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  },
   "icons": {
     "16": "icons/icon-big.png",
     "48": "icons/icon-small-35.png",
@@ -39,5 +43,12 @@
     },
     "default_title": "Kolo",  // optional, shown in tooltip
     "default_popup": "popup.html"    // optional
-  }
+  },
+  "web_accessible_resources":[
+    {
+      "resources": [ "iframe.html", "mapbox-gl.js" ],
+      "matches": [ "*://*/*", "https://api.mapbox.com/*" ]
+    }
+  ]
+
 }

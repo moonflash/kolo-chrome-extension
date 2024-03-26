@@ -1,0 +1,53 @@
+#kolo-overlay {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#kolo-popup {
+  display: block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 95%;
+  background-color: white;
+  z-index: 1;
+}
+
+#kolo-popup-iframe {
+  width: 100%;
+  height: 100%;
+}
+#kolo-map {
+  position: relative;
+  top: 10px;
+  bottom: 0;
+  width: 100%;
+  height: 300px;
+}
+mgl-map {
+  height: 100%;
+  width: 100%;
+}
+pre{
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 15px;
+}
+code{
+  color: red;
+  font-size: 15px;
+}
+#map-kolo-menu {
+  position: relative;
+  background: #efefef;
+  padding: 10px;
+  top: -290px;
+  font-family: 'Open Sans', sans-serif;
+  display: inline-block;
+}
