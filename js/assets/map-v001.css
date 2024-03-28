@@ -1,0 +1,299 @@
+.kolo-location .cleanslate {
+  text-decoration: none!important;
+  background-color: #ff6633 !important;
+  border-radius: 4px !important;
+  display: inline-block !important;
+  padding: 2px 2px 2px 2px !important;
+  z-index: 2222 !important;
+}
+.kolo-location .cleanslate .top {
+  overflow: hidden;
+}
+.kolo-location .cleanslate .top .kolo-button {
+  width: 100px !important;
+  display: inline-block !important;
+}
+.kolo-location .cleanslate .top .title {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: inline-block !important;
+  height: 13px !important;
+  margin-left: 10px !important;
+  font-size: 11px !important;
+  color: white !important;
+  white-space: nowrap !important;
+  vertical-align: middle !important;
+}
+.kolo-location .cleanslate .top span {
+  margin-left: 10px !important;
+  font-size: 11px !important;
+  color: white !important;
+}
+.kolo-location .cleanslate img {
+  border-radius: 4px !important;
+}
+.kolo-location .cleanslate span.values {
+  margin-bottom: 10px !important;
+  pointer-events: none!important;
+  position: static!important;
+  margin-left: -100px !important;
+  margin-bottom: 7px !important;
+  width: 95px!important;
+  display: inline-block !important;
+  text-align: right!important;
+  font-family: Verdana!important;
+  font-size: 11px!important;
+  color: white!important;
+  z-index: 99999!important;
+}
+.kolo-location .cleanslate div.kolo-small-map {
+  visibility: hidden;
+  z-index: 99999999 !important;
+}
+.kolo-location .cleanslate img.orange {
+  border-width: 1px !important;
+  border-color: #E2440F !important;
+  border-style: solid !important;
+  background-color: #ff6633 !important;
+  margin-bottom: -7px !important;
+}
+.kolo-location .cleanslate img.orange .out {
+  fill: red;
+}
+.kolo-location .cleanslate a {
+  text-decoration: none !important;
+}
+.kolo-location .cleanslate a.widget {
+  z-index: 99999 !important;
+  position: absolute !important;
+  margin: 2px 2px !important;
+}
+.kolo-location .cleanslate a.widget img {
+  background-color: #ff6633 !important;
+  border-radius: 4px !important;
+  margin-bottom: 5px !important;
+}
+.kolo-location .cleanslate a.map {
+  position: relative !important;
+}
+.kolo-location.relative .cleanslate {
+  padding: 0px !important;
+  position: absolute !important;
+  right: 0px !important;
+  background-color: transparent !important;
+}
+.kolo-location.relative .cleanslate .kolo_svg {
+  max-width: 40px !important;
+  width: 40px !important;
+  height: 40px !important;
+  margin-right: 8px !important;
+  margin-top: 2px !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  float: right !important;
+  cursor: pointer !important;
+  padding: 3px !important;
+  -webkit-filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.7));
+  filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.7));
+  cursor: pointer;
+}
+.kolo-location.relative .cleanslate .container {
+  width: auto !important;
+}
+.kolo-location.relative .cleanslate .container .link-details {
+  height: 35px !important;
+  padding-right: 20px !important;
+  padding-top: 5px !important;
+  margin-right: -20px !important;
+  background-color: white !important;
+  border-radius: 4px 4px 4px 4px !important;
+  opacity: 1 !important;
+  transition: opacity .3s linear !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: inline-block !important;
+  height: 20px !important;
+  padding-left: 5px !important;
+  font-size: 11px !important;
+  color: black !important;
+  white-space: nowrap !important;
+  vertical-align: middle !important;
+  margin-top: 11px !important;
+  z-index: 1;
+  -webkit-filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.7));
+}
+.kolo-location.relative .cleanslate .container .link-details.hidden {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  transition: opacity 0.4s ease-in-out !important;
+}
+.kolo-location.relative .cleanslate .container .map {
+  opacity: 1 !important;
+  transition: opacity 0.4s ease-in-out !important;
+}
+.kolo-location.relative .cleanslate .container .map.hidden {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  transition: opacity .4s linear !important;
+}
+.kolo-location.relative .cleanslate .container .top .title {
+  visibility: hidden !important;
+}
+.kolo-button .cleanslate a img.orange {
+  border-radius: 5px !important;
+  background-color: #ff6633 !important;
+  margin-bottom: -7px !important;
+}
+.kolo-button .cleanslate a span.values {
+  margin-bottom: 10px !important;
+  pointer-events: none!important;
+  position: static!important;
+  margin-left: -100px !important;
+  margin-bottom: 7px !important;
+  width: 95px!important;
+  display: inline-block !important;
+  text-align: right!important;
+  font-family: Verdana!important;
+  font-size: 11px!important;
+  color: white!important;
+  z-index: 99999!important;
+}
+.kolo-button .cleanslate .kolo-small-map {
+  z-index: 99999999!important;
+}
+.kolo-button .cleanslate .kolo-small-map.hidden {
+  visibility: hidden;
+}
+.kolo-button .cleanslate .kolo-small-map ul {
+  padding: 5px!important;
+  margin: 0px!important;
+  list-style-type: none!important;
+  font-family: Verdana!important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.map {
+  opacity: 1!important;
+  background-image: url(https://kolo.it/assets/widget_map.png) !important;
+  padding: 10px!important;
+  margin-bottom: 5px!important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.map a {
+  text-align: center!important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.map a img {
+  opacity: 1!important;
+  vertical-align: middle!important;
+  width: auto;
+  text-align: middle;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.domain {
+  opacity: 1!important;
+  background-color: rgba(0, 0, 0, 0.85) !important;
+  padding-right: 5px!important;
+  padding-left: 5px!important;
+  margin-bottom: 5px!important;
+  opacity: 1 !important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.domain:hover {
+  opacity: 1 !important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.domain a {
+  color: white!important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.domain a div {
+  display: inline-block !important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.domain a div u {
+  display: block!important;
+  font-size: 14px!important;
+  margin: 5px 0 !important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.domain a div span.top {
+  display: block!important;
+  font-size: 12px!important;
+  margin: 5px 0 !important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.domain a div span.bottom {
+  display: block!important;
+  font-size: 10px!important;
+  position: relative!important;
+  top: 0px!important;
+  left: 0px!important;
+  vertical-align: bottom;
+  margin: 5px 0 !important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.related {
+  opacity: 1!important;
+  background-color: rgba(0, 0, 0, 0.85) !important;
+  padding-right: 5px!important;
+  margin-bottom: 5px!important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.related:hover {
+  opacity: 1 !important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.related.more {
+  padding-left: 5px!important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.related a {
+  color: white!important;
+  float: left!important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.related a img {
+  vertical-align: middle!important;
+  height: 50px!important;
+  min-height: 50px!important;
+  min-width: 50px!important;
+  width: auto!important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.related a div {
+  display: inline-block !important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.related a div span.top {
+  display: block !important;
+  font-size: 12px!important;
+}
+.kolo-button .cleanslate .kolo-small-map ul li.related a div span.bottom {
+  vertical-align: bottom;
+  display: block!important;
+  margin-top: 0px!important;
+  font-size: 10px!important;
+  position: relative!important;
+  top: 15px!important;
+  left: 0px!important;
+}
+.kolo-location .map {
+  opacity: 1 !important;
+  transition: opacity 0.4s ease-in-out !important;
+}
+.kolo-location .map.hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+.mapboxgl-style-list {
+  display: none;
+}
+.mapboxgl-ctrl-group .mapboxgl-style-list button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+  font-size: 14px;
+  padding: 8px 8px 6px;
+  text-align: right;
+  width: 100%;
+  height: auto;
+}
+.mapboxgl-style-list button.active {
+  font-weight: bold;
+}
+.mapboxgl-style-list button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.mapboxgl-style-list button + button {
+  border-top: 1px solid #ddd;
+}
+.mapboxgl-style-switcher {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNTQuODQ5cHgiIGhlaWdodD0iNTQuODQ5cHgiIHZpZXdCb3g9IjAgMCA1NC44NDkgNTQuODQ5IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1NC44NDkgNTQuODQ5OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+PGc+PGc+PHBhdGggZD0iTTU0LjQ5NywzOS42MTRsLTEwLjM2My00LjQ5bC0xNC45MTcsNS45NjhjLTAuNTM3LDAuMjE0LTEuMTY1LDAuMzE5LTEuNzkzLDAuMzE5Yy0wLjYyNywwLTEuMjU0LTAuMTA0LTEuNzktMC4zMThsLTE0LjkyMS01Ljk2OEwwLjM1MSwzOS42MTRjLTAuNDcyLDAuMjAzLTAuNDY3LDAuNTI0LDAuMDEsMC43MTZMMjYuNTYsNTAuODFjMC40NzcsMC4xOTEsMS4yNTEsMC4xOTEsMS43MjksMEw1NC40ODgsNDAuMzNDNTQuOTY0LDQwLjEzOSw1NC45NjksMzkuODE3LDU0LjQ5NywzOS42MTR6Ii8+PHBhdGggZD0iTTU0LjQ5NywyNy41MTJsLTEwLjM2NC00LjQ5MWwtMTQuOTE2LDUuOTY2Yy0wLjUzNiwwLjIxNS0xLjE2NSwwLjMyMS0xLjc5MiwwLjMyMWMtMC42MjgsMC0xLjI1Ni0wLjEwNi0xLjc5My0wLjMyMWwtMTQuOTE4LTUuOTY2TDAuMzUxLDI3LjUxMmMtMC40NzIsMC4yMDMtMC40NjcsMC41MjMsMC4wMSwwLjcxNkwyNi41NiwzOC43MDZjMC40NzcsMC4xOSwxLjI1MSwwLjE5LDEuNzI5LDBsMjYuMTk5LTEwLjQ3OUM1NC45NjQsMjguMDM2LDU0Ljk2OSwyNy43MTYsNTQuNDk3LDI3LjUxMnoiLz48cGF0aCBkPSJNMC4zNjEsMTYuMTI1bDEzLjY2Miw1LjQ2NWwxMi41MzcsNS4wMTVjMC40NzcsMC4xOTEsMS4yNTEsMC4xOTEsMS43MjksMGwxMi41NDEtNS4wMTZsMTMuNjU4LTUuNDYzYzAuNDc3LTAuMTkxLDAuNDgtMC41MTEsMC4wMS0wLjcxNkwyOC4yNzcsNC4wNDhjLTAuNDcxLTAuMjA0LTEuMjM2LTAuMjA0LTEuNzA4LDBMMC4zNTEsMTUuNDFDLTAuMTIxLDE1LjYxNC0wLjExNiwxNS45MzUsMC4zNjEsMTYuMTI1eiIvPjwvZz48L2c+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjxnPjwvZz48Zz48L2c+PGc+PC9nPjwvc3ZnPg==);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 70%;
+}
