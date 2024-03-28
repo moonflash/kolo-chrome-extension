@@ -7682,7 +7682,7 @@
         document.getElementsByTagName('head')[0].appendChild(mapboxcss);
         this.mapsData = document.getElementsByName("kolo-map");
         this.maxImage = getMaxImage();
-        hostnames = ["slobodnadalmacija.hr", 'www.jutarnji.hr', 'www.thesouthafrican.com', 'oxfordshireguardian.co.uk', 'cherwell.org', 'www.iksurfmag.com'];
+        hostnames = ["slobodnadalmacija.hr", 'www.index.hr', 'www.thesouthafrican.com', 'oxfordshireguardian.co.uk', 'cherwell.org', 'www.iksurfmag.com'];
         if (hostnames.some(function(hostname) {
             return document.location.hostname.includes(hostname);
         })) {
