@@ -7331,9 +7331,9 @@
     ;
 
 }());
-//# sourceMappingURL=Leaflet.GoogleMutant.js.map
+
 (function() {
-    var checkImageVisibility, defineMarker, fetchLocationData, findMaps, findObject, getMaxImage, getTilesData, initMap, listenToLogo, loadGoogleMapsScript, locationMap, observer, resizeMap, setMapUnderImage, setMultipleMapboxMap;
+    var checkImageVisibility, defineMarker, fetchLocationData, fetchHeatmapData, getMaxImage, getTopImage, listenToLogo, setHeatmapUnderImage, observer, setMapUnderImage, setMultipleMapboxMap;
 
     checkImageVisibility = function(entries, observer) {
         var entry, i, koloData, len, results;
@@ -7352,8 +7352,7 @@
             }
         }
         return results;
-    }
-    ;
+    };
 
     observer = new IntersectionObserver(checkImageVisibility,{
         root: null,
@@ -7401,30 +7400,11 @@
             iconAnchor: [12, 41]
         });
         return L.Marker.prototype.options.icon = DefaultIcon;
-    }
-    ;
-
-    getTilesData = function() {
-        return fetch('https://data.kolo.it/tiles.json').then(function(response) {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Failed to fetch data');
-            }
-        }).then(function(data) {
-            this.tilesData = data;
-            return findMaps();
-        })["catch"](function(error) {
-            this.tilesData = {};
-            return findMaps();
-        });
-    }
-    ;
+    };
 
     resizeMap = function(event) {
         return event.sourceTarget.fitBounds(event.sourceTarget.koloData.mapBoundaries);
-    }
-    ;
+    };
 
     setMultipleMapboxMap = function(koloData) {
         var fn, i, len, link, map, marker, myMarkers, ref, settings;
@@ -7437,7 +7417,7 @@
         myMarkers = L.featureGroup();
         ref = koloData.locations;
         fn = function(link) {
-            return fetch("https://polygons.openstreetmap.fr/get_geojson.py?id=" + link.osm_id + "&params=0.004000-0.001000-0.001000").then(function(response) {
+            return fetch("https://polygons.openstreetmap.fr/get_geojson.py?id=" + link.osm_id + "&params=0.001000-0.001000-0.001000").then(function(response) {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 } else {
@@ -7477,31 +7457,31 @@
     }
     ;
 
-    locationMap = function(koloData) {
-        if (koloData.domObject.tagName === "IMG") {
-            if (koloData.domObject.checkVisibility && koloData.domObject.checkVisibility()) {
-                return setMapUnderImage(koloData);
-            } else {
-                return observer.observe(koloData.domObject);
-            }
-        } else {
-            return setMultipleMapboxMap(koloData);
-        }
-    }
-    ;
+    // locationMap = function(koloData) {
+    //     if (koloData.domObject.tagName === "IMG") {
+    //         if (koloData.domObject.checkVisibility && koloData.domObject.checkVisibility()) {
+    //             return setMapUnderImage(koloData);
+    //         } else {
+    //             return observer.observe(koloData.domObject);
+    //         }
+    //     } else {
+    //         return setMultipleMapboxMap(koloData);
+    //     }
+    // }
+    // ;
 
-    initMap = function() {
-        var i, koloData, len, ref, results;
-        ref = this.listOfMaps;
-        results = [];
-        for (i = 0,
-        len = ref.length; i < len; i++) {
-            koloData = ref[i];
-            results.push(locationMap(koloData));
-        }
-        return results;
-    }
-    ;
+    // initMap = function() {
+    //     var i, koloData, len, ref, results;
+    //     ref = this.listOfMaps;
+    //     results = [];
+    //     for (i = 0,
+    //     len = ref.length; i < len; i++) {
+    //         koloData = ref[i];
+    //         results.push(locationMap(koloData));
+    //     }
+    //     return results;
+    // }
+    // ;
     getMaxImage = function() {
         var currDimension, img, imgElements, index, maxDimension, maxImage;
         maxDimension = 0;
@@ -7510,15 +7490,42 @@
         for (index in imgElements) {
             img = imgElements[index];
             currDimension = img.width * img.height;
-            if (currDimension > maxDimension) {
+            if (currDimension > maxDimension && rightDimensions(img)) {
                 maxDimension = currDimension;
                 maxImage = img;
             }
         }
         return maxImage;
-    }
-    ;
+    };
+    getTopImage = function() {
+        var topImage = null;
+        var imgElements = document.images;
+        
+        for (var i = 0; i < imgElements.length; i++) {
+          var img = imgElements[i];
+          var width = img.width;
+          var height = img.height;
+          var pageWidth = window.innerWidth;
+          
+          // Check if image meets criteria
+          if ((width >= 0.8 * pageWidth && height >= 180) || (width >= 500 && height >= 350) && isElementInViewport(img)) {
+            topImage = img;
+            console.log(topImage,isElementInViewport(img) );
+            return topImage;
+          }
+        }
+      }
+      rightDimensions = function(el) {
+        return (
+          el.width >= el.height &&
+          el.width / el.height < 2
+        );
+      }
+      
 
+    setHeatmapUnderImage = function(koloData) {
+
+    }
     setMapUnderImage = function(koloData) {
         var address, c, logo, text_width;
         console.log('Setting map under image');
@@ -7558,6 +7565,21 @@
     }
     ;
 
+    fetchHeatmapData = function() {
+        return fetch('https://lead.kolo.it/similar', {
+            method: 'POST',
+            body: JSON.stringify({
+                url: window.location.href
+            })
+        }).then(function(res) {
+            return res.json();
+        }).then(function(data) {
+            return setHeatmapUnderImage(data);
+        })["catch"](function(err) {
+            return console.log(err);
+        });
+    }
+    ;
     fetchLocationData = function() {
         return fetch('https://lead.kolo.it', {
             method: 'POST',
@@ -7575,6 +7597,7 @@
     ;
 
     DomReady.ready(function() {
+        console.log("pero");
         var clean, hostnames, mapboxcss, widget;
         widget = document.createElement('link');
         widget.setAttribute('rel', 'stylesheet');
@@ -7591,16 +7614,19 @@
         mapboxcss.setAttribute('type', 'text/css');
         mapboxcss.setAttribute('href', 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css');
         document.getElementsByTagName('head')[0].appendChild(mapboxcss);
-        this.mapsData = document.getElementsByName("kolo-map");
+        // this.mapsData = document.getElementsByName("kolo-map");
         this.maxImage = getMaxImage();
-        hostnames = ["slobodnadalmacija.hr", 'www.index.hr', 'www.thesouthafrican.com', 'oxfordshireguardian.co.uk', 'cherwell.org', 'www.iksurfmag.com'];
+        console.log("getMaxImage", this.maxImage);
+        // this.maxImage = getTopImage();
+        console.log("maxImagwe", this.maxImage);
+        hostnames = ["slobodnadalmacija.hr", 'index.hr', 'thesouthafrican.com', 'oxfordshireguardian.co.uk', 'cherwell.org', 'www.iksurfmag.com', 'dalmacijadanas.hr'];
         if (hostnames.some(function(hostname) {
             return document.location.hostname.includes(hostname);
         })) {
             console.log('Hostname is in the list');
             fetchLocationData();
             defineMarker();
-            return getTilesData();
+            // fetchHeatmapData();
         } else {
             return console.log('Hostname is not in the list');
         }
