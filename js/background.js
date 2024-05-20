@@ -6587,25 +6587,28 @@
         rootMargin: "0px",
         threshold: 0.1
     });
-
+    this.mapDiv = null;
     listenToLogo = function(_el, koloData) {
         var clickLogo, outOfLogo, overLogo;
-        clickLogo = function(event) {
-            var visibility;
-            event.preventDefault();
-            event.stopPropagation();
-            visibility = this.parentNode.parentNode.parentNode.lastChild.classList.contains('hidden');
-            if (visibility) {
-                console.log("mapDiv", this.mapDiv);
-                this.parentNode.parentNode.parentNode.lastChild.classList.remove('hidden');
-                setMultipleMapboxMap(koloData);
-                return this.mapDiv.style.display = "block";
-            } else {
-                this.parentNode.parentNode.parentNode.lastChild.classList.add('hidden');
-                return this.mapDiv.style.display = "none";;
+        clickLogo = (function(_this) {
+            return function(event) {
+                var target, visibility;
+                event.preventDefault();
+                event.stopPropagation();
+                target = event.currentTarget;
+                visibility = target.parentNode.parentNode.parentNode.lastChild.classList.contains('hidden');
+                if (visibility) {
+                    target.parentNode.parentNode.parentNode.lastChild.classList.remove('hidden');
+                    _this.mapDiv.style.display = "";
+                    setMultipleMapboxMap(koloData);
+                } else {
+                    target.parentNode.parentNode.parentNode.lastChild.classList.add('hidden');
+                    return _this.mapDiv.style.display = "none";
+                }
             }
+            ;
         }
-        ;
+        )(this);
         outOfLogo = function(event) {
             if (!_el.contains(event.relatedTarget)) {
                 return this.parentNode.firstChild.className = "link-details hidden";
@@ -6713,7 +6716,7 @@
                             icon: customIcon
                         }).addTo(map);
                         return marker.on('click', function() {
-                            return window.open(similar.url, '_blank');
+                            return window.open(`${similar.url}#utm_source=self&utm_medium=map&utm_campaign=koloit`, '_blank');
                         });
                     }
                     )(similar));
