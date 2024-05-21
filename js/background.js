@@ -6639,9 +6639,9 @@
 
     setMultipleMapboxMap = function(koloData) {
         var fn, i, len, link, map, marker, myMarkers, ref, settings;
-        map = L.map(this.mapDiv).setView([0, 0], 2);
+        map = L.map(this.mapDiv,{ zoomControl: false }).setView([0, 0], 2);
         settings = {
-            maxZoom: 19
+            maxZoom: 21
         };
         settings.attribution = '';
         L.tileLayer('https://mt2.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {}).addTo(map);
@@ -6882,7 +6882,7 @@
         document.getElementsByTagName('head')[0].appendChild(mapboxcss);
         this.mapsData = document.getElementsByName("kolo-map");
         this.maxImage = getMaxImage();
-        hostnames = ["slobodnadalmacija.hr", 'www.jutarnji.hr', 'www.thesouthafrican.com', 'oxfordshireguardian.co.uk', 'cherwell.org', 'www.iksurfmag.com', 'kolotesting.com', 'dalmacijadanas.hr'];
+        hostnames = ["slobodnadalmacija.hr", 'www.jutarnji.hr', 'www.thesouthafrican.com', 'oxfordshireguardian.co.uk', 'cherwell.org', 'www.iksurfmag.com', 'kolotesting.com', 'dalmacijadanas.hr', '24sata.hr', 'theguardian.com'];
         if (hostnames.some(function(hostname) {
             return document.location.hostname.includes(hostname);
         })) {
