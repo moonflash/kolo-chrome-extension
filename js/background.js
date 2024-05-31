@@ -6599,10 +6599,12 @@
                 visibility = target.parentNode.parentNode.parentNode.lastChild.classList.contains('hidden');
                 if (visibility) {
                     target.parentNode.parentNode.parentNode.lastChild.classList.remove('hidden');
+                    target.parentNode.firstChild.classList.add("hidden");
                     _this.mapDiv.style.display = "";
                     setMultipleMapboxMap(koloData);
                 } else {
                     target.parentNode.parentNode.parentNode.lastChild.classList.add('hidden');
+                    target.parentNode.firstChild.classList.remove("hidden")
                     return _this.mapDiv.style.display = "none";
                 }
             }
@@ -6638,38 +6640,91 @@
     ;
 
     setMultipleMapboxMap = function(koloData) {
-        var fn, i, len, link, map, marker, myMarkers, ref, settings;
-        map = L.map(this.mapDiv,{ zoomControl: false }).setView([0, 0], 2);
+        var currentMarkerIndex, fn, i, len, link, map, marker, markerLocations, myMarkers, ref, settings, zoomControl;
+        map = L.map(this.mapDiv, {
+            zoomControl: false
+        }).setView([0, 0], 2);
         settings = {
-            maxZoom: 21
+            maxZoom: 20
         };
         settings.attribution = '';
         L.tileLayer('https://mt2.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {}).addTo(map);
         myMarkers = L.featureGroup();
+        markerLocations = [];
+        currentMarkerIndex = 0;
+        zoomControl = L.control({
+            position: 'bottomleft'
+        });
+        zoomControl.onAdd = function(map) {
+            var container, img;
+            container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+            container.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+            container.style.width = '35px';
+            container.style.height = '35px';
+            container.style.borderRadius = '50%';
+            img = document.createElement('img');
+            img.src = 'https://kolo.it/it/assets/rotate-48-1.png';
+            img.style.width = '100%';
+            img.style.height = '100%';
+            container.appendChild(img);
+            container.onclick = function() {
+                console.log(markerLocations);
+                if (markerLocations.length > 0) {
+                    if (currentMarkerIndex < markerLocations.length) {
+                        if (markerLocations[currentMarkerIndex].geojsonLayer != null) {
+                            map.flyToBounds(markerLocations[currentMarkerIndex].geojsonLayer.getBounds());
+                        } else {
+                            map.flyTo(markerLocations[currentMarkerIndex].loc, 17);
+                        }
+                        return currentMarkerIndex += 1;
+                    } else {
+                        map.flyToBounds(myMarkers.getBounds());
+                        return currentMarkerIndex = 0;
+                    }
+                }
+            }
+            ;
+            return container;
+        }
+        ;
+        zoomControl.addTo(map);
         ref = koloData.source.locations;
         fn = function(link) {
-            return fetch("https://polygons.openstreetmap.fr/get_geojson.py?id=" + link.osm_id + "&params=0.004000-0.001000-0.001000").then(function(response) {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                } else {
-                    return response.json();
-                }
-            }).then(function(data) {
-                var geojsonLayer;
-                geojsonLayer = L.geoJSON(data, {
-                    style: function(feature) {
-                        return {
-                            color: 'red'
-                        };
+            if (typeof link.osm_id === 'number') {
+                return fetch("https://polygons.openstreetmap.fr/get_geojson.py?id=" + link.osm_id + "&params=0.004000-0.001000-0.001000").then(function(response) {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    } else {
+                        return response.json();
                     }
+                }).then(function(data) {
+                    var geojsonLayer;
+                    geojsonLayer = L.geoJSON(data, {
+                        style: function(feature) {
+                            return {
+                                color: 'red'
+                            };
+                        }
+                    });
+                    myMarkers.addLayer(geojsonLayer);
+                    map.fitBounds(myMarkers.getBounds());
+                    return markerLocations.push({
+                        loc: link.loc,
+                        geojsonLayer: geojsonLayer
+                    });
+                })["catch"](function(error) {
+                    var marker;
+                    marker = L.marker(link.loc);
+                    myMarkers.addLayer(marker);
+                    return markerLocations.push({
+                        loc: link.loc
+                    });
                 });
-                myMarkers.addLayer(geojsonLayer);
-                return map.fitBounds(myMarkers.getBounds());
-            })["catch"](function(error) {
-                var marker;
-                marker = L.marker(link.loc);
-                return myMarkers.addLayer(marker);
-            });
+            } else {
+                return markerLocations.push({
+                    loc: link.loc
+                });
+            }
         }
         ;
         for (i = 0,
@@ -6691,7 +6746,7 @@
     ;
 
     addSimilar = function(map, koloData) {
-        var customIcon, i, len, location, ref, results, similar;
+        var customIcon, i, len, ref, results, similar;
         customIcon = L.icon.pulse({
             iconSize: [11, 11],
             fillColor: 'white',
@@ -6703,31 +6758,34 @@
         for (i = 0,
         len = ref.length; i < len; i++) {
             similar = ref[i];
-            results.push((function() {
-                var j, len1, ref1, results1;
+            results.push((function(similar) {
+                var j, len1, location, ref1, results1;
                 ref1 = similar.locations;
                 results1 = [];
                 for (j = 0,
                 len1 = ref1.length; j < len1; j++) {
                     location = ref1[j];
-                    results1.push((function(similar) {
+                    results1.push((function(location) {
                         var marker;
                         marker = L.marker([location.loc.lat, location.loc.lon], {
                             icon: customIcon
                         }).addTo(map);
+                        console.log(similar.url);
+                        marker.url = similar.url + "#utm_source=self&utm_medium=map&utm_campaign=koloit";
                         return marker.on('click', function() {
-                            return window.open(`${similar.url}#utm_source=self&utm_medium=map&utm_campaign=koloit`, '_blank');
+                            return window.open(this.url, '_blank');
                         });
                     }
-                    )(similar));
+                    )(location));
                 }
                 return results1;
             }
-            )());
+            )(similar));
         }
         return results;
     }
     ;
+
 
     locationMap = function(koloData) {
         if (koloData.domObject.tagName === "IMG") {
@@ -6791,12 +6849,12 @@
         c = document.createElement("div");
         c.className = "kolo-location relative";
         address = "Click to see the map.";
-        text_width = 200;
-        c.innerHTML = "<div class='cleanslate'><div class='container'><div class='link-details'><div class='title' style='max-width:" + text_width + "px !important;'>" + address + "</div></div><img class='kolo_svg' src='https://kolo.it/it/assets/kolo-logo.svg' ></div></div><div class='kolo-mapbox map hidden'></div>";
+        text_width = 130;
+        c.innerHTML = "<div class='cleanslate' ><div class='container' style='position:fixed !important; top: 60px !important; right:0px !important'><div class='link-details'><div class='title' style='width:" + text_width + "px !important;'>" + address + "</div></div><img class='kolo_svg' src='https://kolo.it/it/assets/kolo-logo.svg' ></div></div><div class='kolo-mapbox map hidden'></div>";
         logo = c.getElementsByClassName("kolo_svg")[0];
         document.body.appendChild(c);
         c.style.position = "fixed";
-        c.style.top = "55px";
+        c.style.top = "0px";
         c.style.right = "0px";
         c.style.zIndex = "99999";
         listenToLogo(logo, koloData);
@@ -6882,7 +6940,7 @@
         document.getElementsByTagName('head')[0].appendChild(mapboxcss);
         this.mapsData = document.getElementsByName("kolo-map");
         this.maxImage = getMaxImage();
-        hostnames = ["slobodnadalmacija.hr", 'www.jutarnji.hr', 'www.thesouthafrican.com', 'oxfordshireguardian.co.uk', 'cherwell.org', 'www.iksurfmag.com', 'kolotesting.com', 'dalmacijadanas.hr', '24sata.hr', 'theguardian.com'];
+        hostnames = ["slobodnadalmacija.hr", 'www.jutarnji.hr', 'thesouthafrican.com', 'oxfordshireguardian.co.uk', 'cherwell.org', 'www.iksurfmag.com', 'kolotesting.com', 'dalmacijadanas.hr', '24sata.hr', 'theguardian.com','poslovni.hr', 'drumtidam.info'];
         if (hostnames.some(function(hostname) {
             return document.location.hostname.includes(hostname);
         })) {
