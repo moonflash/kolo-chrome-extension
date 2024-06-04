@@ -6846,6 +6846,9 @@
     setMobileMap = function(koloData) {
         var address, c, logo, map_div, text_width;
         console.log('Setting mobile map', koloData.source);
+        if (!(koloData.source.locations && koloData.source.locations.length > 0)) {
+            return;
+        }
         c = document.createElement("div");
         c.className = "kolo-location relative";
         address = "Click to see the map.";
