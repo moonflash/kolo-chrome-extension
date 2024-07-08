@@ -6572,6 +6572,7 @@
                 koloData = listOfMaps.find(function(obj) {
                     return obj.domObject === entry.target;
                 });
+                console.log(koloData);
                 setMapUnderImage(koloData);
                 results.push(observer.unobserve(entry.target));
             } else {
@@ -6688,7 +6689,7 @@
         }
         ;
         zoomControl.addTo(map);
-        ref = koloData.source.locations;
+        ref = koloData.link.locations;
         fn = function(link) {
             if (typeof link.osm_id === 'number') {
                 return fetch("https://polygons.openstreetmap.fr/get_geojson.py?id=" + link.osm_id + "&params=0.004000-0.001000-0.001000").then(function(response) {
@@ -6735,12 +6736,12 @@
             myMarkers.addLayer(marker);
         }
         myMarkers.addTo(map);
-        if (koloData.source.locations.length > 1) {
+        if (koloData.link.locations.length > 1) {
             map.fitBounds(myMarkers.getBounds());
-            return addSimilar(map, koloData);
+            // return addSimilar(map, koloData);
         } else {
-            map.flyTo(koloData.source.locations[0].loc, 14);
-            return addSimilar(map, koloData);
+            map.flyTo(koloData.link.locations[0].loc, 14);
+            // return addSimilar(map, koloData);
         }
     }
     ;
@@ -6820,10 +6821,12 @@
         imgElements = document.images;
         for (index in imgElements) {
             img = imgElements[index];
-            currDimension = img.width * img.height;
-            if (currDimension > maxDimension) {
-                maxDimension = currDimension;
-                maxImage = img;
+            if (img.offsetWidth > 0 && img.offsetHeight > 0) { // check if image is visible
+                currDimension = img.width * img.height;
+                if (currDimension > maxDimension) {
+                    maxDimension = currDimension;
+                    maxImage = img;
+                }
             }
         }
         return maxImage;
@@ -6845,8 +6848,8 @@
 
     setMobileMap = function(koloData) {
         var address, c, logo, map_div, text_width;
-        console.log('Setting mobile map', koloData.source);
-        if (!(koloData.source.locations && koloData.source.locations.length > 0)) {
+        console.log('Setting mobile map', koloData.link);
+        if (!(koloData.link.locations && koloData.link.locations.length > 0)) {
             return;
         }
         c = document.createElement("div");
@@ -6871,8 +6874,7 @@
 
     setMapUnderImage = function(koloData) {
         var address, c, logo, text_width;
-        console.log('Setting map under image', koloData.source);
-        if (!(koloData.source.locations && koloData.source.locations.length > 0)) {
+        if (!(koloData.link.locations && koloData.link.locations.length > 0)) {
             return;
         }
         c = document.createElement("div");
@@ -6881,7 +6883,7 @@
         text_width = 200;
         this.maxImage.parentNode.replaceChild(c, this.maxImage);
         console.log('maxImage', this.maxImage);
-        c.innerHTML = "<div class='cleanslate'><div class='container'><div class='link-details hidden'><div class='title' style='max-width:" + text_width + "px !important;'>" + address + "</div></div><img class='kolo_svg' src='https://kolo.it/it/assets/kolo-logo.svg' ></div></div><div class='kolo-mapbox map hidden'></div>";
+        c.innerHTML = "<div class='cleanslate'><div class='container'><div class='link-details'><div class='title' style='max-width:" + text_width + "px !important;'>" + address + "</div></div><img class='kolo_svg' src='https://kolo.it/it/assets/kolo-logo.svg' ></div></div><div class='kolo-mapbox map hidden'></div>";
         logo = c.getElementsByClassName("kolo_svg")[0];
         c.parentNode.insertBefore(this.maxImage, c);
         c.style.position = "absolute";
@@ -6929,7 +6931,7 @@
         widget = document.createElement('link');
         widget.setAttribute('rel', 'stylesheet');
         widget.setAttribute('type', 'text/css');
-        widget.setAttribute('href', 'https://kolo.it/it/assets/map-v001.css');
+        widget.setAttribute('href', 'https://script.kolo.it/test/map-test.css');
         document.getElementsByTagName('head')[0].appendChild(widget);
         clean = document.createElement('link');
         clean.setAttribute('rel', 'stylesheet');
